@@ -1,7 +1,7 @@
 {
   "name": "p5-elly-dialloo",
   "version": "1.0.0",
-  "description": "",
+  "description": "construction d'un site de e-commerce",
   "main": "index.js",
   "scripts": {
     "sass": "sass --watch ./scss/style.scss:./css/style.css --style expanded"
