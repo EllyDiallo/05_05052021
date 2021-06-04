@@ -16,17 +16,23 @@ const getApi = (url) =>  fetch(url)
 return response.json()
 })
 .then(function(response) {
-console.log(JSON.stringify(response));
+    return response;
+/*console.log(JSON.stringify(response));*/
 })
 .catch(error => console.log("Erreur : " + error));
 
 
 
 
-getApi("http://localhost:3000/api/teddies"); 
+getApi("http://localhost:3000/api/teddies")
+
+.then(function(response){
+    console.log(response[0].name);
+});
 
 
-function createcards(response,cardsArea){
+
+/*function createcards(response,cardsArea){
 
     const cardsArea = document.getElementById("teddys-cards");
 
@@ -63,7 +69,7 @@ function createcards(response,cardsArea){
     fig.appendChild(descriptions);
     link.appendChild(options);
     link.appendChild(price);
-};
+};*/
 
 /*const products = fetch("http://localhost:3000/api/teddies")
 .then(response => response.json())
