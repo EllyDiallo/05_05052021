@@ -1,66 +1,73 @@
-const products =  fetch("http://localhost:3000/api/teddies" )
+ //Récupération de l'api
+ 
+ /*const getApi = () =>  fetch("http://localhost:3000/api/teddies" )
 .then(function(response) {
-  response.json()
-    .then(function(response) {
-      alert(response);
-    })
+return response.json()
 })
-
-
-/*fetch("http://localhost:3000/api/teddies")
-
 .then(function(response) {
-  alert(response.json);
+console.log(JSON.stringify(response));
 })
+.catch(error => console.log("Erreur : " + error));
+
+getApi();*/
+
+const getApi = (url) =>  fetch(url)
+.then(function(response) {
+return response.json()
+})
+.then(function(response) {
+console.log(JSON.stringify(response));
+})
+.catch(error => console.log("Erreur : " + error));
 
 
-.catch(error => alert("Erreur :" + error));*/
 
 
+getApi("http://localhost:3000/api/teddies"); 
 
 
+function createcards(response,cardsArea){
 
-/*const responseApi = new XMLHttpRequest();
+    const cardsArea = document.getElementById("teddys-cards");
 
-  responseApi.open("GET","http://localhost:3000/api/teddies");
-
-  responseApi.responseType = "json";
-
-  responseApi.send();
-
-  responseApi.onload = function(){
-    if(responseApi.status != 200){
-      alert("Erreur " + responseApi.status + " : " + responseApi.statusText);
+    const div = document.createElement("div");
+    div.innerHTML = response.name;
+    div.setAttribute("class","col-10 col-lg-5");
     
-  }else{
-    
-    alert(responseApi.response.length + " octets  téléchargés\n" + JSON.stringify(responseApi.response));
-    JSON.stringify(responseApi.response);
-  }
+    const fig = document.createElement("figure");
+
+    const images = document.createElement("img");
+    images.setAttribute(
+        ["width","100%"],
+        ["src",response.imageUrl]
+    );
+
+    const descriptions = document.createElement("figcaption");
+    descriptions.innerHTML = response.descriptions;
+
+    const options = document.createElement("ol");
+    options.innerHTML = "Choisissez votre couleur" + response.colors;
+    options.setAttribute("class","text-left");
+
+    const price = document.createElement("p");
+    price.innerHTML = response.price;
+
+    const link = document.createElement("a");
+    link.innerHTML = reponse._id;
+
+
+    cardsArea.appendChild(div);
+    div.appendChild(link);
+    link.appendChild(fig);
+    fig.appendChild(images);
+    fig.appendChild(descriptions);
+    link.appendChild(options);
+    link.appendChild(price);
 };
 
-responseApi.onerror = function(){
-  alert("La réponse a échoué.");
-};
+/*const products = fetch("http://localhost:3000/api/teddies")
+.then(response => response.json())
+.then(response => console.log(JSON.stringify(response)))
+.catch(error => console.log("Erreur : " + error));*/
 
-responseApi.onprogress = function(event){
-  if(event.lengthComputable){
-    alert(event.loaded + " octets reçus sur un total de " + event.total);
-  }
-};
 
-console.log(responseApi);*/
-
-/*function createCard (responseApi){
-
-  const div = document.createElement("div");
-  div.innerHTML = responseApi.name;
-  div.setAttribute(
-    "class","col-10 col-lg-5"
-  );
-
-  const image = document.createElement("img");
-  image.innerHTML = responseApi.imageUrl;
-  image.setAttribute("width","100%");
-
-};*/
