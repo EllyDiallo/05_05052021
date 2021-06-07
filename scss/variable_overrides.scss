@@ -2,6 +2,13 @@ $primary: #f3e9f1;
 $secondary : rgb(226, 182, 252) ;
 $light: #f3ebf3;
 $info : #a567be;
-$warning :#db872c;
+$warning :#f3ae63;
 $dark: #261626;
 $danger : #f7b39f;
+
+
+
+
+.fit{
+    object-fit: cover;
+};
