@@ -30,7 +30,7 @@ function createcards(response,i){
     
         const div = document.createElement("div");
         div.innerHTML = response[i].name;
-        div.setAttribute("class"," col-9 col-md-6 col-lg-3  mx-3 my-3 bg-warning rounded border border-primary shadow ");
+        div.setAttribute("class"," col-9 col-md-6 col-lg-3  mx-3 my-3 bg-warning w-25 rounded border border-primary shadow ");
         
         const fig = document.createElement("figure");
         fig.setAttribute("class","")
@@ -56,7 +56,7 @@ function createcards(response,i){
         price.setAttribute("class","text-right");
 
         const link = document.createElement("a");
-        link.setAttribute("href", response[i]._id);
+        link.setAttribute("href", "product.html?id=" + response[i]._id);
 
 
         cardsArea.appendChild(div);
@@ -74,7 +74,7 @@ function createcards(response,i){
 getApi("http://localhost:3000/api/teddies")
 
 .then(function(response){
-    for(let i =0 ; i < response.length; i = i+1){
+    for(let i =0 ; i < response.length; i++){
    console.log(response);
     createcards(response,i);
     }   

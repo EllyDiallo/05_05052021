@@ -1,10 +1,10 @@
 $primary: #f3e9f1;
-$secondary : rgb(226, 182, 252) ;
-$light: #f3ebf3;
-$info : #a567be;
-$warning :#f3ae63;
+$secondary : rgb(232, 199, 252) ;
+$light: #f5cef5;
+$info : #c89dda;
+$warning :#fdd8cdfa;
 $dark: #261626;
-$danger : #f7b39f;
+$danger : #fcc4b4;
 
 $link-hover-color: rgba(4, 58, 58,0.5)!default;
 
@@ -27,9 +27,6 @@ div{
     
 }
 
-.wrap{
-    
-}
 #teddys-cards > div> a > figure > p.text-left\,wrap{
     display: flex;
     flex-wrap: wrap;
