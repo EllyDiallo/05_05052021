@@ -26,7 +26,7 @@ function createcards(response,i){
 
     
         const cardsArea = document.getElementById("teddys-cards");
-        cardsArea.setAttribute("class","bg-light container mx-auto my-5 row  justify-content-around py-5" );
+        cardsArea.setAttribute("class","bg-light container mx-auto my-5 row shadow justify-content-around py-5" );
     
         const div = document.createElement("div");
         div.innerHTML = response[i].name;

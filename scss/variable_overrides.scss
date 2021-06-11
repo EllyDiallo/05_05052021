@@ -3,12 +3,12 @@ $secondary : rgb(232, 199, 252) ;
 $light: #f5cef5;
 $info : #c89dda;
 $warning :#fdd8cdfa;
-$dark: #261626;
-$danger : #fcc4b4;
+$dark: #584558;
+$danger : #cbff9a;
 
 $link-hover-color: rgba(4, 58, 58,0.5)!default;
 
-
+$enable-shadows: true;
 .fit{
     object-fit: cover;
 };

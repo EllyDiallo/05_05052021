@@ -1,4 +1,4 @@
-//reponse de l'Api
+//***********************************reponse de l'Api
 
 const getApi = (url) =>  fetch(url)
 .then(function(response) {
@@ -8,34 +8,46 @@ return response.json()
     return response;
 })
 .catch(error => console.log("Erreur : " + error));
+/************************************************* */
 
-
-//obtention de l'ID.
+//*********************************obtention de l'ID.
 
 function getIdProduct(){
     const searchedId = window.location.search;
     const idProduct = searchedId.replace("?id=","");
     return idProduct;
 };
-
-
-//fonction option
-
-
-/*function buildList(response,c){
  
-    for (let c = 0 ; c < response.colors.length; c++){
-        var item =  document.createElement("option");
-        item.innerHTML = " couleur : " + response.colors[c];
-        item.setAttribute("value", response.colors[c]);
-    }
-        
-    
-};*/
+/************************************************ */
+
+getIdProduct();
 
 
 
-// crréation de la carte produit
+//***************************Création objet Product
+
+ function sendProduct(id , optColorSelected){
+     this.id = id;
+     this.optColorSelected = optColorSelected;
+     let file = [id , optColorSelected];
+     return file;
+ };
+/************************************************ */
+
+//*****************fonction envoyer au localstorage
+
+function addToStorage(id,optColorSelected){
+    storageContent = [];
+    let product = new sendProduct(id, optColorSelected);
+    storageContent.push(product);
+    localStorage.setItem("storageContent",JSON.stringify(storageContent));
+
+
+};
+/********************************************** */
+
+
+// création de la carte produit
 
 function createProduct (response){
 
@@ -68,11 +80,12 @@ function createProduct (response){
     const selection = document.createElement("select");
     selection.setAttribute("id","option-selection");
     selection.setAttribute("name","coleurs");
+    selection.setAttribute("class","border border-secondary shadow bg-primary rounded ");
     
     const itemDefault = document.createElement("option");
     itemDefault.innerHTML = "Choisir une couleur";
     selection.appendChild(itemDefault);
-
+//**********************************création des options
     for (let c = 0 ; c < response.colors.length; c++){
 
         const item =  document.createElement("option");
@@ -80,7 +93,7 @@ function createProduct (response){
         item.innerHTML = response.colors[c];
         selection.appendChild(item);
     };
-    
+ //*************************************************** */   
         
 
     const price = document.createElement("p");
@@ -90,6 +103,17 @@ function createProduct (response){
     const link = document.createElement("a");
     link.setAttribute("href", "product.html?id=" + response._id);
 
+    const btn = document.createElement("button");
+    btn.innerHTML ="Ajoutez au panier";
+    btn.setAttribute("class","border border-secondary shadow bg-danger rounded");
+
+    btn.addEventListener("click",function(){
+        
+        const id = getIdProduct();
+        const optColor = document.getElementsByTagName("select");
+        const optColorSelected = optColor[0].value;
+        addToStorage(id,optColorSelected);
+    });
 
     productArea.appendChild(div);
     div.appendChild(fig);
@@ -97,8 +121,8 @@ function createProduct (response){
     fig.appendChild(descriptions);
     fig.appendChild(label);
     fig.appendChild(selection);
-    
     fig.appendChild(price);
+    fig.appendChild(btn);
 
 };
 
