@@ -37,10 +37,18 @@ getIdProduct();
 //*****************fonction envoyer au localstorage
 
 function addToStorage(id,optColorSelected){
-    storageContent = [];
+    storageContent = JSON.parse(localStorage.getItem("storageContent"));
+    if (storageContent === null){
+        storageContent = [];
+    }
+
     let product = new sendProduct(id, optColorSelected);
     storageContent.push(product);
     localStorage.setItem("storageContent",JSON.stringify(storageContent));
+   /* storageContent = [];
+    let product = new sendProduct(id, optColorSelected);
+    storageContent.push(product);
+    localStorage.setItem("storageContent",JSON.stringify(storageContent));*/
 
 
 };
