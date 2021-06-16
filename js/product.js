@@ -20,35 +20,32 @@ function getIdProduct(){
  
 /************************************************ */
 
-getIdProduct();
 
 
 
 //***************************Création objet Product
 
- function sendProduct(id , optColorSelected){
+ function sendProduct(id , optColorSelected,teddyName,teddyPic){
      this.id = id;
      this.optColorSelected = optColorSelected;
-     let file = [id , optColorSelected];
+     this.teddyName = teddyName;
+     this.teddyPic = teddyPic;
+     let file = [id , optColorSelected, teddyName, teddyPic];
      return file;
  };
 /************************************************ */
 
 //*****************fonction envoyer au localstorage
 
-function addToStorage(id,optColorSelected){
+function addToStorage(id,optColorSelected,teddyName,teddyPic){
     storageContent = JSON.parse(localStorage.getItem("storageContent"));
     if (storageContent === null){
         storageContent = [];
     }
 
-    let product = new sendProduct(id, optColorSelected);
+    let product = new sendProduct(id, optColorSelected,teddyName,teddyPic);
     storageContent.push(product);
     localStorage.setItem("storageContent",JSON.stringify(storageContent));
-   /* storageContent = [];
-    let product = new sendProduct(id, optColorSelected);
-    storageContent.push(product);
-    localStorage.setItem("storageContent",JSON.stringify(storageContent));*/
 
 
 };
@@ -114,14 +111,17 @@ function createProduct (response){
     const btn = document.createElement("button");
     btn.innerHTML ="Ajoutez au panier";
     btn.setAttribute("class","border border-secondary shadow bg-danger rounded");
-    
+
     const teddyName = response.name;
+    const teddyPic = response.imageUrl;
+
     btn.addEventListener("click",function(response){
+        
         
         const id = getIdProduct();
         const optColor = document.getElementsByTagName("select");
         const optColorSelected = optColor[0].value;
-        addToStorage(id,optColorSelected);
+        addToStorage(id,optColorSelected,teddyName,teddyPic);
         alert( "Un petit "+ teddyName + " de couleur "+ optColorSelected + " à été ajouté au panier");
     });
 
@@ -143,5 +143,6 @@ getApi("http://localhost:3000/api/teddies/" + getIdProduct())
 .then(function(response){
     
    createProduct(response);
+   console.log(response);
 //function afficher produit
 });

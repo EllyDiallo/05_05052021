@@ -1,7 +1,18 @@
 
+
+const getApi = (url) =>  fetch(url)
+.then(function(response) {
+return response.json()
+})
+.then(function(response) {
+    return response;
+})
+.catch(error => console.log("Erreur : " + error));
+
+
 const productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
 
-console.log(productsInStorage);
+console.log(productsInStorage.length);
 
 /*function displayProducts(productsInStorage){
     for(let i in productsInStorage)
@@ -29,8 +40,21 @@ function createBasket (){
 
     btnErase.addEventListener("click",function(){
         localStorage.removeItem("storageContent");
-    })
-    
+    });
+
+    for(let i =0; i < productsInStorage.length; i++){
+        const id = productsInStorage[i][0];
+        getApi("http://localhost:3000/api/teddies/" + id)
+        .then(function(response){
+            const imagesBasket = document.createElement("img");
+            imagesBasket.setAttribute("width","30%")
+            imagesBasket.setAttribute("height","200px");
+            imagesBasket.setAttribute("src", response.imageUrl);
+            imagesBasket.setAttribute("class","fit fluid rounded-top");
+            div.appendChild(imagesBasket);
+
+        });
+    };
 
     basketArea.appendChild(div);
     div.appendChild(title);
