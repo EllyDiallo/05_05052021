@@ -114,13 +114,15 @@ function createProduct (response){
     const btn = document.createElement("button");
     btn.innerHTML ="Ajoutez au panier";
     btn.setAttribute("class","border border-secondary shadow bg-danger rounded");
-
-    btn.addEventListener("click",function(){
+    
+    const teddyName = response.name;
+    btn.addEventListener("click",function(response){
         
         const id = getIdProduct();
         const optColor = document.getElementsByTagName("select");
         const optColorSelected = optColor[0].value;
         addToStorage(id,optColorSelected);
+        alert( "Un petit "+ teddyName + " de couleur "+ optColorSelected + " à été ajouté au panier");
     });
 
     productArea.appendChild(div);
