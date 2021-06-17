@@ -1,5 +1,5 @@
 
-
+/********************************** obtention API */
 const getApi = (url) =>  fetch(url)
 .then(function(response) {
 return response.json()
@@ -10,15 +10,41 @@ return response.json()
 .catch(error => console.log("Erreur : " + error));
 
 
-const productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
+let productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
 
 console.log(productsInStorage.length);
 
-/*function displayProducts(productsInStorage){
-    for(let i in productsInStorage)
-}*/
+
+/*************************fonctions ajouter le total du prix dans le localStorage */
+
+function PushPrice(eachPrice){
+    storagePriceContent.push(eachPrice);
+};
+
+function addPriceToStorage(productsInStorage){
+    storagePriceContent = JSON.parse(localStorage.getItem("storagePriceContent"));
+    if (storagePriceContent === null){
+        storagePriceContent = [];
+    }
+
+    storagePriceContent = [];
+    
+    for (let p = 0 ; p < productsInStorage.length; p++){
+        const eachPrice = productsInStorage[p][2] ;
+        PushPrice(eachPrice);
+    }
+   
+    reducer = (accumulator, currentValue) => accumulator + currentValue;  
+    let TotalProductsPrice = storagePriceContent.reduce(reducer) ; 
+    
+    
+    localStorage.setItem("storagePriceContent",JSON.stringify(TotalProductsPrice));
 
 
+};
+
+
+/**********************************************Fonction  créer le panier */
 
 function createBasket (){
 
@@ -59,12 +85,12 @@ function createBasket (){
     basketArea.appendChild(div);
     div.appendChild(title);
     div.appendChild(choosen);
-    
     div.appendChild(btnErase);
 
-
+    addPriceToStorage(productsInStorage);
     
 };
 
 createBasket();
 
+// Créer un élémént prix avec retour de storaPriceContent

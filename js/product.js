@@ -9,6 +9,7 @@ return response.json()
 })
 .catch(error => console.log("Erreur : " + error));
 /************************************************* */
+let productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
 
 //*********************************obtention de l'ID.
 
@@ -25,30 +26,36 @@ function getIdProduct(){
 
 //***************************Création objet Product
 
- function sendProduct(id , optColorSelected,teddyName,teddyPic){
+ function sendProduct(id , optColorSelected, teddyPrice){
      this.id = id;
      this.optColorSelected = optColorSelected;
-     this.teddyName = teddyName;
-     this.teddyPic = teddyPic;
-     let file = [id , optColorSelected, teddyName, teddyPic];
+     this.teddyPrice = teddyPrice;
+     let file = [id , optColorSelected, teddyPrice];
      return file;
  };
+
 /************************************************ */
+
+
+
 
 //*****************fonction envoyer au localstorage
 
-function addToStorage(id,optColorSelected,teddyName,teddyPic){
+function addToStorage(id, optColorSelected, teddyPrice){
     storageContent = JSON.parse(localStorage.getItem("storageContent"));
     if (storageContent === null){
         storageContent = [];
     }
 
-    let product = new sendProduct(id, optColorSelected,teddyName,teddyPic);
+    let product = new sendProduct(id, optColorSelected, teddyPrice );
     storageContent.push(product);
     localStorage.setItem("storageContent",JSON.stringify(storageContent));
 
 
 };
+/********************************** */
+
+
 /********************************************** */
 
 
@@ -113,16 +120,19 @@ function createProduct (response){
     btn.setAttribute("class","border border-secondary shadow bg-danger rounded");
 
     const teddyName = response.name;
-    const teddyPic = response.imageUrl;
+    const teddyPrice = response.price;
+    
 
     btn.addEventListener("click",function(response){
         
-        
+        const productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
         const id = getIdProduct();
         const optColor = document.getElementsByTagName("select");
-        const optColorSelected = optColor[0].value;
-        addToStorage(id,optColorSelected,teddyName,teddyPic);
+        const optColorSelected = optColor[0].value; 
+        addToStorage(id,optColorSelected, teddyPrice);
         alert( "Un petit "+ teddyName + " de couleur "+ optColorSelected + " à été ajouté au panier");
+        
+        
     });
 
     productArea.appendChild(div);
@@ -144,5 +154,7 @@ getApi("http://localhost:3000/api/teddies/" + getIdProduct())
     
    createProduct(response);
    console.log(response);
+   
+   
 //function afficher produit
 });
