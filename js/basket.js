@@ -16,70 +16,45 @@ let productPriceInStorage = JSON.parse(localStorage.getItem("storagePriceContent
 console.log(productsInStorage.length);
 
 
-/*************************fonctions ajouter le total du prix dans le localStorage */
+/*************************fonction somme total des prix */
 
-function PushPrice(eachPrice){
-    storagePriceContent.push(eachPrice);
+
+
+function totalPriceTeddy(productsInStorage){
+    let sum = 0;
+    for(let p = 0 ; p < productsInStorage.length; p++){
+       sum = sum + productsInStorage[p][2];
+    };
+    return sum;
 };
-
-function addPriceToStorage(productsInStorage){
-    storagePriceContent = JSON.parse(localStorage.getItem("storagePriceContent"));
-    if (storagePriceContent === null){
-        storagePriceContent = [];
-    }
-
-    storagePriceContent = [];
-    
-    for (let p = 0 ; p < productsInStorage.length; p++){
-        const eachPrice = productsInStorage[p][2] ;
-        PushPrice(eachPrice);
-    }
-   
-    reducer = (accumulator, currentValue) => accumulator + currentValue;  
-    let TotalProductsPrice = storagePriceContent.reduce(reducer) ; 
-    
-    
-    localStorage.setItem("storagePriceContent",JSON.stringify(TotalProductsPrice));
-
-
-};
-
 
 /**********************************************Fonction  créer le panier */
 
-function createBasket (){
-
-  
-    
+function createBasket (productsInStorage){
 
     const div = document.getElementById("basket");
     const title = document.createElement("h1");
     title.innerHTML = "Panier";
 
-   
-
     const choosen = document.createElement("p");
     choosen.textContent = "Vous avez choisi : ";
 
-
-
     for(let i =0; i < productsInStorage.length; i++){
         const id = productsInStorage[i][0];
-        getApi("http://localhost:3000/api/teddies/" + id)
-        .then(function(response){
-
+        const urlTeddy = productsInStorage[i][3];
+       
             const divBasket = document.createElement("div");
             divBasket.setAttribute("class", "mx-2 bd-highlight mb-3  bg-warning shadow d-flex flex-row  flex-wrap w-auto h-auto justify-content-center");
 
             const imagesBasket = document.createElement("img");
             imagesBasket.setAttribute("width","30%");
             imagesBasket.setAttribute("height","100px");
-            imagesBasket.setAttribute("src", response.imageUrl);
+            imagesBasket.setAttribute("src", urlTeddy );
             imagesBasket.setAttribute("class","fit fluid rounded-top mx-2 my-2 align-self-center w-25 col-6");
 
             const nameBasket = document.createElement("h4");
             nameBasket.setAttribute("class","w-10 align-self-center px-2 col-6");
-            nameBasket.innerHTML = response.name;
+            nameBasket.innerHTML =  productsInStorage[i][4] ;
 
             const optionSelected = document.createElement("div");
             optionSelected.setAttribute("class", "w-50 mx-2 danger justify-self-center d-flex flex-wrap");
@@ -89,21 +64,28 @@ function createBasket (){
             priceBasket.setAttribute("class","w-25 align-self-end justify-self-end ml-auto p-2 bd-highlight");
             priceBasket.innerHTML = " Prix HT : " + productsInStorage[i][2] + "€" ;
 
+            const btnEraseItem = document.createElement("button");
+            btnEraseItem.textContent ="Annuler le produit";
+            btnEraseItem.setAttribute("class","border border-secondary shadow bg-dark rounded float-right");
+            btnEraseItem.setAttribute("type","button");
+            btnEraseItem.addEventListener("click",function(){
+                localStorage.removeItem("storageContent"[i]);
+                
+            });
+
             div.appendChild(divBasket);
             divBasket.appendChild(nameBasket);
             divBasket.appendChild(imagesBasket);
             divBasket.appendChild(optionSelected);
             divBasket.appendChild(priceBasket);
+            divBasket.appendChild(btnEraseItem);
             
-
-        });
     };
 
     
     const totalPrice = document.createElement("div");
     totalPrice.setAttribute("class","align-self-center my-3");
-    totalPrice.innerHTML = " Prix total : " + productPriceInStorage + "€" +   "<br>" + productsInStorage.length + " produit\(s\)";
-    
+    totalPrice.innerHTML = " Prix total : " + totalPriceTeddy(productsInStorage) + "€" +   "<br>" + productsInStorage.length + " produit\(s\)";
     
     const btnErase = document.createElement("button");
     btnErase.textContent ="Vider le panier";
@@ -112,20 +94,15 @@ function createBasket (){
 
     btnErase.addEventListener("click",function(){
         localStorage.removeItem("storageContent");
-        localStorage.removeItem("storagePriceContent");
+     
     });
 
     div.appendChild(totalPrice);    
     div.appendChild(choosen);
     div.appendChild(btnErase);
 
-
-    addPriceToStorage(productsInStorage);
-    
-
-    
 };
 
-createBasket();
+createBasket(productsInStorage);
 
 // Créer un élémént prix avec retour de storaPriceContent

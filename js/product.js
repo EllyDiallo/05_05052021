@@ -26,11 +26,13 @@ function getIdProduct(){
 
 //***************************Création objet Product
 
- function sendProduct(id , optColorSelected, teddyPrice){
+ function sendProduct(id , optColorSelected, teddyPrice, teddyPic, teddyName ){
      this.id = id;
      this.optColorSelected = optColorSelected;
      this.teddyPrice = teddyPrice;
-     let file = [id , optColorSelected, teddyPrice];
+     this.teddpic = teddyPic;
+     this.teddyName = teddyName;
+     let file = [id , optColorSelected, teddyPrice, teddyPic, teddyName];
      return file;
  };
 
@@ -41,13 +43,13 @@ function getIdProduct(){
 
 //*****************fonction envoyer au localstorage
 
-function addToStorage(id, optColorSelected, teddyPrice){
+function addToStorage(id, optColorSelected, teddyPrice, teddyPic, teddyName){
     storageContent = JSON.parse(localStorage.getItem("storageContent"));
     if (storageContent === null){
         storageContent = [];
     }
 
-    let product = new sendProduct(id, optColorSelected, teddyPrice );
+    let product = new sendProduct(id, optColorSelected, teddyPrice, teddyPic, teddyName );
     storageContent.push(product);
     localStorage.setItem("storageContent",JSON.stringify(storageContent));
 
@@ -121,6 +123,7 @@ function createProduct (response){
 
     const teddyName = response.name;
     const teddyPrice = response.price;
+    const teddyPic = response.imageUrl;
     
 
     btn.addEventListener("click",function(response){
@@ -129,7 +132,7 @@ function createProduct (response){
         const id = getIdProduct();
         const optColor = document.getElementsByTagName("select");
         const optColorSelected = optColor[0].value; 
-        addToStorage(id,optColorSelected, teddyPrice);
+        addToStorage(id,optColorSelected, teddyPrice, teddyPic,teddyName);
         alert( "Un petit "+ teddyName + " de couleur "+ optColorSelected + " à été ajouté au panier");
         
         
