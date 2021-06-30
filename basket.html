@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Orinoco</title>
 </head>
-<body class="bg-primary">
+<body class="bg-primary d-flex justify-content-center align-content-center flex-column">
     
     <div class="bg-info">
         <div class="container">
@@ -32,25 +32,57 @@
         </div>    
     </div> 
 
-    <div class="container text-center  my-5 bg-secondary rounded-pill shadow border border_dark clearfix">
-        <div class="row ">
-            <h1 class=" my-5 ">Les ours en peluche <strong>Orinoco</strong></h1>
-            <h2>Adoptez un nouvel ami </h2>
-        </div>
+    <div class=" w-75 my-5 text-center bg-secondary rounded-pill px-4 py-5 shadow border border_dark align-self-center">
+            <h1 class=" my-5  text-shadow">Les ours en peluche <strong>Orinoco</strong></h1>
+            <h2 class=" flex-wrap text-shadow">Adoptez un nouvel ami </h2>  
     </div>
 
-   <section  class=" mx-auto my-5 row  rounded py-5 bg-light h-100"> 
+   <section  class=" mx-5 my-5 row  rounded py-5 bg-light h-100"> 
         <div id="basket" class= "container d-flex flex-column justify-content-around  col-9 col-md-6 col-lg-3  mx-auto my-3 bg-warning rounded border  w-75 h-75 border-info shadow  justify-content-center">
                 <h3 class="text-center">Panier</h3>
         </div>
    </section>
+
+   <div class="container d-flex justify-content-center">
+    <form  class="w-75 ">
+        <div class="form-group">
+            <label for="first-name">Prénom</label>
+            <input type="text" class="form-control" name="first-name" placeholder="First name" id="first-name" required aria-label="Entrez votre prénom" >
+        </div>
+
+        <div class="form-group">
+            <label for="last-name">Nom</label>
+            <input type="text" class="form-control" name="last-name" placeholder="last-name" id="last-name" required aria-label="Entrez votre nom" >
+        </div>
+
+        <div class="form-group">
+            <label for="adresse">Adresse</label>
+            <input type="text" class="form-control" name="adresse" placeholder="21 Jump street" id="adresse" required aria-label="Entrez votre adresse" >
+        </div>
+
+        <div class="form-group">
+            <label for="city">Ville</label>
+            <input type="text" class="form-control" name="city" placeholder="Strasbourg" id="city" required aria-label="Entrez votre ville de résidence" >
+        </div>
+
+        <div class="form-group">
+            <label for="email">Adresse mail</label>
+            <input type="email" class="form-control" name="email" placeholder="Adresse mail" id="email" required aria-label="Entrez votre adsresse mail" >
+        </div>
+
+        <div class="d-flex justify-content-center">
+        <button type="submit" id="btn-form" class="border border-secondary my-3 shadow bg-danger justify-self-center rounded float-right" aria-label="Validez le formulaire">Valider</button>
+        </div>
+
+     </form>
+    </div>
 
     <div class="bg-info">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <ul class="list-inline text-center">
-                        <li class="list-inline-item mx"><a href="#">Mentions legales</a> </li>
+                        <li class="list-inline-item mx"><a href="#">Mentions légales</a> </li>
                         <li class="list-inline-item"> <a href="#">Vie privée</a></li>
                         <li class="list-inline-item"><a href="#">Contactez-nous</a></li>
                     </ul>

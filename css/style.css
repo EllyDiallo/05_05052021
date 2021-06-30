@@ -16,6 +16,10 @@ div {
   box-sizing: content-box;
 }
 
+.text-shadow {
+  text-shadow: 4px 2px 3px #a88b90;
+}
+
 #teddys-cards > div > a > figure > p.text-left\,wrap {
   display: flex;
   flex-wrap: wrap;

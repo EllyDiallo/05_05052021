@@ -1,7 +1,7 @@
 
 /********************************** obtention API */
 const getApi = (url) =>  fetch(url)
-.then(function(response) {
+.then(function(tsponse) {
 return response.json()
 })
 .then(function(response) {
@@ -66,7 +66,7 @@ function createBasket (productsInStorage){
 
             const btnEraseItem = document.createElement("button");
             btnEraseItem.textContent ="Annuler le produit";
-            btnEraseItem.setAttribute("class","border border-secondary shadow bg-dark rounded float-right");
+            btnEraseItem.setAttribute("class","border border-secondary my-2 shadow bg-dark rounded float-right");
             btnEraseItem.setAttribute("type","button");
             btnEraseItem.addEventListener("click",function(){
                 localStorage.removeItem("storageContent"[i]);
@@ -89,7 +89,7 @@ function createBasket (productsInStorage){
     
     const btnErase = document.createElement("button");
     btnErase.textContent ="Vider le panier";
-    btnErase.setAttribute("class","border border-secondary shadow bg-dark rounded float-right");
+    btnErase.setAttribute("class","border border-secondary my-3 shadow bg-dark rounded float-right");
     btnErase.setAttribute("type","button");
 
     btnErase.addEventListener("click",function(){
@@ -105,4 +105,78 @@ function createBasket (productsInStorage){
 
 createBasket(productsInStorage);
 
-// Créer un élémént prix avec retour de storaPriceContent
+/*
+        const prenom = document.getElementById("first-name").value;
+        const nom = document.getElementById("last-name").value;
+        const addre = document.getElementById("adresse").value;
+        const ville = document.getElementById("city").value;
+        const mail = document.getElementById("email").value;
+
+const contact = {
+    firstName: prenom ,
+    lastName: nom,
+    address: addre,
+    city: ville,
+    email: mail
+     };
+
+     console.log(contact);*/
+        const contact = {
+            firstName: "" ,
+            lastName:"",
+            address: "",
+            city: "",
+            email: ""
+        };
+     
+       
+       /* function getValuesForm() {
+
+       
+            const prenom = document.getElementById("first-name").value;
+            const nom = document.getElementById("last-name").value;
+            const addre = document.getElementById("adresse").value;
+            const ville = document.getElementById("city").value;
+            const mail = document.getElementById("email").value;
+    
+            contact.firstName = prenom;
+            contact.lastName = nom;
+            contact.address = addre;
+            contact.city = ville;
+            contact.email = mail;
+     
+            console.log(contact);
+
+    };*/
+
+    
+     const buttonForm = document.getElementById("btn-form");
+     buttonForm.addEventListener('click',function(){
+           
+          
+        
+            const prenom = document.getElementById("first-name").value;
+            const nom = document.getElementById("last-name").value;
+            const addre = document.getElementById("adresse").value;
+            const ville = document.getElementById("city").value;
+            const mail = document.getElementById("email").value;
+    
+            contact.firstName = prenom;
+            contact.lastName = nom;
+            contact.address = addre;
+            contact.city = ville;
+            contact.email = mail;
+     
+            console.log(contact);
+
+     });
+        
+
+       
+
+   
+
+      
+    
+
+
