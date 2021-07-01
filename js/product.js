@@ -138,6 +138,21 @@ function createProduct (response){
         
     });
 
+    const links = document.createElement("div");
+    links.setAttribute("class", "container d-flex justify-content-between");
+
+
+    const previous = document.createElement("a");
+    const next = document.createElement("a");
+
+    previous.setAttribute("class","col-2"); 
+    previous.setAttribute("href","index.html");
+    previous.textContent = "accueil";
+
+    next.setAttribute("class","col-1 text-right"); 
+    next.setAttribute("href","basket.html");
+    next.textContent = "panier";
+
     productArea.appendChild(div);
     div.appendChild(fig);
     fig.appendChild(images);
@@ -146,6 +161,9 @@ function createProduct (response){
     fig.appendChild(selection);
     fig.appendChild(price);
     fig.appendChild(btn);
+    productArea.appendChild(links);
+    links.appendChild(previous);
+    links.appendChild(next);
 
 };
 

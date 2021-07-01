@@ -71,6 +71,7 @@ function createBasket (productsInStorage){
             btnEraseItem.addEventListener("click",function(){
                 localStorage.removeItem("storageContent"[i]);
                 
+                
             });
 
             div.appendChild(divBasket);
@@ -79,7 +80,8 @@ function createBasket (productsInStorage){
             divBasket.appendChild(optionSelected);
             divBasket.appendChild(priceBasket);
             divBasket.appendChild(btnEraseItem);
-            
+
+
     };
 
     
@@ -92,8 +94,16 @@ function createBasket (productsInStorage){
     btnErase.setAttribute("class","border border-secondary my-3 shadow bg-dark rounded float-right");
     btnErase.setAttribute("type","button");
 
+    
     btnErase.addEventListener("click",function(){
         localStorage.removeItem("storageContent");
+      
+
+        const eraseDiv = document.getElementById("empty");
+        eraseDiv.removeChild(basket);
+        eraseDiv.textContent = "Votre panier est vide";
+        eraseDiv.setAttribute("class","text-center bg-dark w-50 align-self-center");
+
      
     });
 
@@ -121,13 +131,13 @@ const contact = {
      };
 
      console.log(contact);*/
-        const contact = {
-            firstName: "" ,
-            lastName:"",
-            address: "",
-            city: "",
-            email: ""
-        };
+const contact = {
+    firstName: "" ,
+    lastName:"",
+    address: "",
+    city: "",
+    email: ""
+};
      
        
        /* function getValuesForm() {
@@ -150,26 +160,26 @@ const contact = {
     };*/
 
     
-     const buttonForm = document.getElementById("btn-form");
-     buttonForm.addEventListener('click',function(){
+const buttonForm = document.getElementById("btn-form");
+buttonForm.addEventListener('click',function(){
            
           
         
-            const prenom = document.getElementById("first-name").value;
-            const nom = document.getElementById("last-name").value;
-            const addre = document.getElementById("adresse").value;
-            const ville = document.getElementById("city").value;
-            const mail = document.getElementById("email").value;
+    const prenom = document.getElementById("first-name").value;
+    const nom = document.getElementById("last-name").value;
+    const addre = document.getElementById("adresse").value;
+    const ville = document.getElementById("city").value;
+    const mail = document.getElementById("email").value;
     
-            contact.firstName = prenom;
-            contact.lastName = nom;
-            contact.address = addre;
-            contact.city = ville;
-            contact.email = mail;
+    contact.firstName = prenom;
+    contact.lastName = nom;
+    contact.address = addre;
+    contact.city = ville;
+    contact.email = mail;
      
-            console.log(contact);
+    console.log(contact);
 
-     });
+});
         
 
        
