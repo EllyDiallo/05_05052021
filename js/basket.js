@@ -115,22 +115,8 @@ function createBasket (productsInStorage){
 
 createBasket(productsInStorage);
 
-/*
-        const prenom = document.getElementById("first-name").value;
-        const nom = document.getElementById("last-name").value;
-        const addre = document.getElementById("adresse").value;
-        const ville = document.getElementById("city").value;
-        const mail = document.getElementById("email").value;
+//***********************création array [contact] */
 
-const contact = {
-    firstName: prenom ,
-    lastName: nom,
-    address: addre,
-    city: ville,
-    email: mail
-     };
-
-     console.log(contact);*/
 const contact = {
     firstName: "" ,
     lastName:"",
@@ -138,27 +124,18 @@ const contact = {
     city: "",
     email: ""
 };
-     
-       
-       /* function getValuesForm() {
 
-       
-            const prenom = document.getElementById("first-name").value;
-            const nom = document.getElementById("last-name").value;
-            const addre = document.getElementById("adresse").value;
-            const ville = document.getElementById("city").value;
-            const mail = document.getElementById("email").value;
-    
-            contact.firstName = prenom;
-            contact.lastName = nom;
-            contact.address = addre;
-            contact.city = ville;
-            contact.email = mail;
-     
-            console.log(contact);
 
-    };*/
+/*************************création array[products] */
+const products = [];
 
+for(let i = 0; i < productsInStorage.length; i++){
+    products.push(productsInStorage[i][0]);
+};
+
+
+
+console.log(products);
     
 const buttonForm = document.getElementById("btn-form");
 buttonForm.addEventListener('click',function(){
