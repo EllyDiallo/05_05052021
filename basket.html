@@ -48,32 +48,37 @@
         <div class="form-group">
             <label for="first-name">Prénom</label>
             <input type="text" class="form-control" name="first-name" placeholder="First name" id="first-name" required aria-label="Entrez votre prénom" >
+            <span id="first-name-missing"></span>
         </div>
 
         <div class="form-group">
             <label for="last-name">Nom</label>
             <input type="text" class="form-control" name="last-name" placeholder="last-name" id="last-name" required aria-label="Entrez votre nom" >
+            <span id="last-name-missing"></span>
         </div>
 
         <div class="form-group">
             <label for="adresse">Adresse</label>
             <input type="text" class="form-control" name="adresse" placeholder="21 Jump street" id="adresse" required aria-label="Entrez votre adresse" >
+            <span id="adresse-missing"></span>
         </div>
 
         <div class="form-group">
             <label for="city">Ville</label>
             <input type="text" class="form-control" name="city" placeholder="Strasbourg" id="city" required aria-label="Entrez votre ville de résidence" >
+            <span id="city-missing"></span>
         </div>
 
         <div class="form-group">
             <label for="email">Adresse mail</label>
             <input type="email" class="form-control" name="email" placeholder="Adresse mail" id="email" required aria-label="Entrez votre adsresse mail" >
+            <span id="email-missing"></span>
         </div>
 
         <div class="d-flex justify-content-center">
         <button type="submit" id="btn-form" class="border border-secondary my-3 shadow bg-danger justify-self-center rounded float-right" aria-label="Validez le formulaire">Valider</button>
         </div>
-
+    
      </form>
     </div>
 

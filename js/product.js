@@ -176,6 +176,4 @@ getApi("http://localhost:3000/api/teddies/" + getIdProduct())
    createProduct(response);
    console.log(response);
    
-   
-//function afficher produit
 });

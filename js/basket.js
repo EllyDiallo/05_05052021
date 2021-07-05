@@ -1,7 +1,7 @@
 
 /********************************** obtention API */
 const getApi = (url) =>  fetch(url)
-.then(function(tsponse) {
+.then(function(response) {
 return response.json()
 })
 .then(function(response) {
@@ -13,12 +13,9 @@ return response.json()
 let productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
 let productPriceInStorage = JSON.parse(localStorage.getItem("storagePriceContent"));
 
-console.log(productsInStorage.length);
 
 
 /*************************fonction somme total des prix */
-
-
 
 function totalPriceTeddy(productsInStorage){
     let sum = 0;
@@ -127,21 +124,141 @@ const contact = {
 
 
 /*************************création array[products] */
+
+
 const products = [];
 
 for(let i = 0; i < productsInStorage.length; i++){
     products.push(productsInStorage[i][0]);
 };
 
+/***************************creation de la requête POST */
+
+/*const urlOrder = "http://localhost:3000/api/teddies/order";
+const requestBack = new Request(urlOrder,{
+    method:'POST',
+    body: JSON.stringify(contact, products),
+    headers: new Headers({
+        'Content-Type': 'application/json'
+    })
+})*/
+
+/*******************function POST API */
+
+/*const postApi = (requestBack) =>  fetch(requestBack)
+.then(function(response) {
+return response.json();
+})
+.then(function(response) {
+    return response,
+    console.log(response);
+})
+.catch(error => console.log("Erreur : " + error));*/
+
+function firstValidity(event){
+    const prenomF = document.getElementById("first-name");
+    const firstMissing = document.getElementById("first-name-missing");
+    const reg1 = /^[a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+)?/;
+    if(prenomF.validity.valueMissing){
+        event.preventDefault();
+        firstMissing.textContent = "Prénom manquant";
+        firstMissing.style.color = "red";
+    }else if(reg1.test(prenomF.value)== false){
+
+        event.preventDefault();
+        firstMissing.textContent = "Format incorrect";
+        firstMissing.style.color = "orange";
+
+    }else{
+
+    };
+};
+
+function lastValidity(event){
+    const nomF = document.getElementById("last-name");
+    const lastMissing = document.getElementById("last-name-missing");
+    const reg1 = /^[a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+)?/;
+    if(nomF.validity.valueMissing){
+        event.preventDefault();
+        lastMissing.textContent = "Nom manquant";
+        lastMissing.style.color = "red";
+    }else if(reg1.test(nomF.value)== false){
+
+        event.preventDefault();
+        lastMissing.textContent = "Format incorrect";
+        lastMissing.style.color = "orange";
+
+    }else{
+
+    };
+};
 
 
-console.log(products);
-    
-const buttonForm = document.getElementById("btn-form");
-buttonForm.addEventListener('click',function(){
-           
-          
-        
+function cityValidity(event){
+    const cityF = document.getElementById("city");
+    const cityMissing = document.getElementById("city-missing");
+    const reg1 = /^[a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+)?/;
+    if(cityF.validity.valueMissing){
+        event.preventDefault();
+        cityMissing.textContent = "Ville non-définie";
+        cityMissing.style.color = "red";
+    }else if(reg1.test(cityF.value)== false){
+
+        event.preventDefault();
+        cityMissing.textContent = "Format incorrect";
+        cityMissing.style.color = "orange";
+
+    }else{
+
+    };
+};
+
+
+function emailValidity(event){
+    const emailF = document.getElementById("email");
+    const emailMissing = document.getElementById("email-missing");
+    const reg2 = /^([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/i;
+    if(emailF.validity.valueMissing){
+        event.preventDefault();
+        emailMissing.textContent = "Adresse maïl non-définie";
+        emailMissing.style.color = "red";
+    }else if(reg2.test(emailF.value)== false){
+
+        event.preventDefault();
+        emailMissing.textContent = "Format incorrect, veuillez uitiliser un '@' et le format '.com ou .fr ect' ";
+        emailMissing.style.color = "orange";
+
+    }else{
+
+    };
+};
+
+function adresseValidity(event){
+    const adresseF = document.getElementById("adresse");
+    const adresseMissing = document.getElementById("adresse-missing");
+    const reg3 = /^([\d]{1,3})(?:(?:[,. ]){1,2}[a-zA-Zàâäéèêëïîôöùûüç]+)+/i;
+    if(adresseF.validity.valueMissing){
+        event.preventDefault();
+        adresseMissing.textContent = "Adresse non-définie";
+        adresseMissing.style.color = "red";
+    }else if(reg3.test(adresseF.value)== false){
+
+        event.preventDefault();
+        adresseMissing.textContent = "Format incorrect, veuillez uitiliser  le format '21, rue Monnet";
+        adresseMissing.style.color = "orange";
+
+    }else{
+
+    };
+};
+
+
+
+
+
+
+function createContact() {
+
     const prenom = document.getElementById("first-name").value;
     const nom = document.getElementById("last-name").value;
     const addre = document.getElementById("adresse").value;
@@ -153,14 +270,37 @@ buttonForm.addEventListener('click',function(){
     contact.address = addre;
     contact.city = ville;
     contact.email = mail;
-     
+
     console.log(contact);
 
+
+};
+ 
+
+const buttonForm = document.getElementById("btn-form");
+buttonForm.addEventListener('click',function(event){
+       
+    event.preventDefault();
+    
+    
+    createContact();
+    
+
+    firstValidity(event);
+    lastValidity(event);
+    cityValidity(event);
+    adresseValidity(event);
+    emailValidity(event);
+
+
 });
-        
+    
+
+// postApi(requestBack);
+  
 
        
-
+ 
    
 
       
