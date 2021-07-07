@@ -122,9 +122,7 @@ const contact = {
     email: ""
 };
 
-
 /*************************création array[products] */
-
 
 const products = [];
 
@@ -133,27 +131,24 @@ for(let i = 0; i < productsInStorage.length; i++){
 };
 
 /***************************creation de la requête POST */
-let order = { contact: contact, products: products }
+let order = { contact: contact, products: products };
 const urlOrder = "http://localhost:3000/api/teddies/order";
-/*const requestBack = new Request(urlOrder,{
-    method:'POST',
-    body: JSON.stringify(order),
-    headers: new Headers({
-        'Content-Type': 'application/json'
-    })
-});
 
 /*******************function POST API */
 
-/*const postApi = (requestBack) =>  fetch(requestBack)
-.then(function(response) {
-return response.json();
+const postApi = (urlOrder) => fetch(urlOrder, {
+    method: "POST",
+    headers: {
+        "Content-Type" : "application/json",
+    },
+    body: JSON.stringify({ contact: contact, products: products })
 })
-.then(function(response) {
-    return response,
-    console.log(response);
+.then((response) => response.json())
+.then(function(json) {
+    localStorage.setItem("orderConfirmation",JSON.stringify(json.orderId));
+    console.log(json.orderId)
 })
-.catch(error => console.log("Erreur : " + error));*/
+.catch((error) => console.log("error:", error));
 
 
 function firstValidity(event){
@@ -274,7 +269,6 @@ function createContact() {
 
     console.log(typeof(contact));
 
-
 };
  
 
@@ -283,9 +277,7 @@ buttonForm.addEventListener('click',function(event){
        
     event.preventDefault();
     
-    
     createContact();
-    
 
     firstValidity(event);
     lastValidity(event);
@@ -293,25 +285,10 @@ buttonForm.addEventListener('click',function(event){
     adresseValidity(event);
     emailValidity(event);
 
-    fetch(urlOrder, {
-        method: "POST",
-        headers: {
-            "Content-Type" : "application/json",
-        },
-        body: JSON.stringify({ contact: contact, products: products })
-    })
-    .then((response) => response.json())
-    .then(function(json) {
-        //sessionStorage.setItem("orderConfirmation",JSON.stringify(json));
-        console.log(json.orderId)
-    })
-    .catch((error) => console.log("error:", error));
-    
-
-   // postApi(requestBack);
+   postApi(urlOrder);
 
 });
-    console.log(typeof(products));
+   // console.log(typeof(products));
    //console.log(requestBack);
  
   
