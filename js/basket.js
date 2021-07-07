@@ -133,15 +133,15 @@ for(let i = 0; i < productsInStorage.length; i++){
 };
 
 /***************************creation de la requête POST */
-
-/*const urlOrder = "http://localhost:3000/api/teddies/order";
-const requestBack = new Request(urlOrder,{
+let order = { contact: contact, products: products }
+const urlOrder = "http://localhost:3000/api/teddies/order";
+/*const requestBack = new Request(urlOrder,{
     method:'POST',
-    body: JSON.stringify(contact, products),
+    body: JSON.stringify(order),
     headers: new Headers({
         'Content-Type': 'application/json'
     })
-})*/
+});
 
 /*******************function POST API */
 
@@ -154,6 +154,7 @@ return response.json();
     console.log(response);
 })
 .catch(error => console.log("Erreur : " + error));*/
+
 
 function firstValidity(event){
     const prenomF = document.getElementById("first-name");
@@ -271,7 +272,7 @@ function createContact() {
     contact.city = ville;
     contact.email = mail;
 
-    console.log(contact);
+    console.log(typeof(contact));
 
 
 };
@@ -292,11 +293,27 @@ buttonForm.addEventListener('click',function(event){
     adresseValidity(event);
     emailValidity(event);
 
-
-});
+    fetch(urlOrder, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json",
+        },
+        body: JSON.stringify({ contact: contact, products: products })
+    })
+    .then((response) => response.json())
+    .then(function(json) {
+        //sessionStorage.setItem("orderConfirmation",JSON.stringify(json));
+        console.log(json.orderId)
+    })
+    .catch((error) => console.log("error:", error));
     
 
-// postApi(requestBack);
+   // postApi(requestBack);
+
+});
+    console.log(typeof(products));
+   //console.log(requestBack);
+ 
   
 
        

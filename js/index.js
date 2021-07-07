@@ -1,8 +1,4 @@
- /*const products = fetch("http://localhost:3000/api/teddies")
-.then(response => response.json())
-.then(response => console.log(JSON.stringify(response)))
-.catch(error => console.log("Erreur : " + error));*/
- 
+
  //Récupération de l'api
 
 const getApi = (url) =>  fetch(url)
@@ -11,8 +7,6 @@ return response.json()
 })
 .then(function(response) {
     return response;
-
-   /* return JSON.stringify(response);*/
 
 })
 .catch(error => console.log("Erreur : " + error));
@@ -30,10 +24,9 @@ function createcards(response,i){
     
         const div = document.createElement("div");
         div.innerHTML = response[i].name;
-        div.setAttribute("class"," col-9 col-md-6 col-lg-3  mx-3 my-3 bg-warning w-25 rounded border border-primary shadow ");
+        div.setAttribute("class"," col-9 col-md-6 col-lg-3  mx-3 my-3 bg-warning w-lg-25 rounded border border-primary shadow ");
         
         const fig = document.createElement("figure");
-        fig.setAttribute("class","")
 
         const images = document.createElement("img");
         images.setAttribute("width","100%");
@@ -75,7 +68,7 @@ getApi("http://localhost:3000/api/teddies")
 
 .then(function(response){
     for(let i =0 ; i < response.length; i++){
-   console.log(response);
+  
     createcards(response,i);
     }   
 }

@@ -9,6 +9,7 @@ return response.json()
 })
 .catch(error => console.log("Erreur : " + error));
 /************************************************* */
+
 let productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
 
 //*********************************obtention de l'ID.
@@ -24,13 +25,13 @@ function getIdProduct(){
 
 
 
-//***************************Création objet Product
+//***************************Création classe Product
 
  function sendProduct(id , optColorSelected, teddyPrice, teddyPic, teddyName ){
      this.id = id;
      this.optColorSelected = optColorSelected;
      this.teddyPrice = teddyPrice;
-     this.teddpic = teddyPic;
+     this.teddypic = teddyPic;
      this.teddyName = teddyName;
      let file = [id , optColorSelected, teddyPrice, teddyPic, teddyName];
      return file;
@@ -49,7 +50,7 @@ function addToStorage(id, optColorSelected, teddyPrice, teddyPic, teddyName){
         storageContent = [];
     }
 
-    let product = new sendProduct(id, optColorSelected, teddyPrice, teddyPic, teddyName );
+    let product = new sendProduct(id, optColorSelected, teddyPrice, teddyPic, teddyName);
     storageContent.push(product);
     localStorage.setItem("storageContent",JSON.stringify(storageContent));
 
@@ -73,15 +74,13 @@ function createProduct (response){
     div.setAttribute("class"," col-9 col-md-6 col-lg-3  mx-3 my-3 bg-warning rounded border  w-50 h-75 border-info shadow ");
 
     const fig = document.createElement("figure");
-    fig.setAttribute("class","")
-
+    
     const images = document.createElement("img");
     images.setAttribute("width","100%");
     images.setAttribute("height","400px");
     images.setAttribute("src", response.imageUrl);
     images.setAttribute("class","fit fluid rounded-top");
     
-
     const descriptions = document.createElement("figcaption");
     descriptions.innerHTML = response.description;
     descriptions.setAttribute("class","bg-secondary text-center");
@@ -90,7 +89,6 @@ function createProduct (response){
     label.innerHTML = "Choisissez une option :";
     label.setAttribute("for","option-selection");
   
-
     const selection = document.createElement("select");
     selection.setAttribute("id","option-selection");
     selection.setAttribute("name","coleurs");
@@ -174,6 +172,5 @@ getApi("http://localhost:3000/api/teddies/" + getIdProduct())
 .then(function(response){
     
    createProduct(response);
-   console.log(response);
    
 });
