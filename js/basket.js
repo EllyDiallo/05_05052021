@@ -86,6 +86,7 @@ function createBasket (productsInStorage){
     totalPrice.setAttribute("class","align-self-center my-3");
     totalPrice.innerHTML = " Prix total : " + totalPriceTeddy(productsInStorage) + "€" +   "<br>" + productsInStorage.length + " produit\(s\)";
     
+
     const btnErase = document.createElement("button");
     btnErase.textContent ="Vider le panier";
     btnErase.setAttribute("class","border border-secondary my-3 shadow bg-dark rounded float-right");
@@ -95,13 +96,11 @@ function createBasket (productsInStorage){
     btnErase.addEventListener("click",function(){
         localStorage.removeItem("storageContent");
       
-
         const eraseDiv = document.getElementById("empty");
         eraseDiv.removeChild(basket);
         eraseDiv.textContent = "Votre panier est vide";
         eraseDiv.setAttribute("class","text-center bg-dark w-50 align-self-center");
 
-     
     });
 
     div.appendChild(totalPrice);    
@@ -131,6 +130,7 @@ for(let i = 0; i < productsInStorage.length; i++){
 };
 
 /***************************creation de la requête POST */
+
 let order = { contact: contact, products: products };
 const urlOrder = "http://localhost:3000/api/teddies/order";
 
@@ -285,12 +285,12 @@ buttonForm.addEventListener('click',function(event){
     adresseValidity(event);
     emailValidity(event);
 
-   postApi(urlOrder);
+    postApi(urlOrder);
+
+    this.onclick(window.location = '/confirmation.html')
 
 });
-   // console.log(typeof(products));
-   //console.log(requestBack);
- 
+
   
 
        

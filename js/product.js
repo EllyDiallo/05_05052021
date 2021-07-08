@@ -145,11 +145,12 @@ function createProduct (response){
 
     previous.setAttribute("class","col-2"); 
     previous.setAttribute("href","index.html");
-    previous.textContent = "accueil";
+    previous.textContent = "Retour aux peluches";
+    
 
     next.setAttribute("class","col-1 text-right"); 
     next.setAttribute("href","basket.html");
-    next.textContent = "panier";
+    next.textContent = "Panier";
 
     productArea.appendChild(div);
     div.appendChild(fig);
