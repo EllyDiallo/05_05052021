@@ -150,62 +150,76 @@ const postApi = (urlOrder) => fetch(urlOrder, {
 })
 .catch((error) => console.log("error:", error));
 
+/*************************************function simple chaine de caractères */
 
-function firstValidity(event){
+function simpleStringValidity(event){
     const prenomF = document.getElementById("first-name");
     const firstMissing = document.getElementById("first-name-missing");
+    const nomF = document.getElementById("last-name");
+    const lastMissing = document.getElementById("last-name-missing");
+    const cityF = document.getElementById("city");
+    const cityMissing = document.getElementById("city-missing");
+
     const reg1 = /^[a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+)?/;
+
     if(prenomF.validity.valueMissing){
+
         event.preventDefault();
         firstMissing.textContent = "Prénom manquant";
         firstMissing.style.color = "red";
-    }else if(reg1.test(prenomF.value)== false){
+
+    }else if(reg1.test(prenomF.value) == false){
 
         event.preventDefault();
-        firstMissing.textContent = "Format incorrect";
+        firstMissing.textContent = "Format incorrect : Seule la première lettre peut être une majuscule, les prénoms composés d'un espace ou un '-' sont accecptés";
         firstMissing.style.color = "orange";
 
-    }else{
-        return true;
-    };
-};
+    }else if(nomF.validity.valueMissing){
 
-function lastValidity(event){
-    const nomF = document.getElementById("last-name");
-    const lastMissing = document.getElementById("last-name-missing");
-    const reg1 = /^[a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+)?/;
-    if(nomF.validity.valueMissing){
         event.preventDefault();
         lastMissing.textContent = "Nom manquant";
         lastMissing.style.color = "red";
-    }else if(reg1.test(nomF.value)== false){
+
+    }else if(reg1.test(nomF.value) == false){
 
         event.preventDefault();
-        lastMissing.textContent = "Format incorrect";
+        lastMissing.textContent = "Format incorrect : Seule la première lettre peut être une majuscule, les noms composés d'un espace ou un '-' sont accecptés";
         lastMissing.style.color = "orange";
 
-    }else{
-        return true;
-    };
-};
+    }else if(cityF.validity.valueMissing){
 
-
-function cityValidity(event){
-    const cityF = document.getElementById("city");
-    const cityMissing = document.getElementById("city-missing");
-    const reg1 = /^[a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+)?/;
-    if(cityF.validity.valueMissing){
         event.preventDefault();
         cityMissing.textContent = "Ville non-définie";
         cityMissing.style.color = "red";
-    }else if(reg1.test(cityF.value)== false){
+
+    }else if(reg1.test(cityF.value) == false){
 
         event.preventDefault();
-        cityMissing.textContent = "Format incorrect";
+        cityMissing.textContent = "Format incorrect : Seule la première lettre peut être une majuscule, les ville composés d'un espace ou un '-' sont accecptés";
         cityMissing.style.color = "orange";
 
     }else{
+        
         return true;
+    };
+
+    if (prenomF.validity.valueMissing == false && reg1.test(prenomF.value) == true){
+        
+        firstMissing.textContent = "Valide";
+        firstMissing.style.color = "green";
+
+    };
+
+    if(nomF.validity.valueMissing == false && reg1.test(nomF.value) == true){
+
+        lastMissing.textContent = "Valide";
+        lastMissing.style.color = "green";
+
+    };
+    if(cityF.validity.valueMissing == false && reg1.test(cityF.value) == true){
+
+        cityMissing.textContent = "Valide";
+        cityMissing.style.color = "green";
     };
 };
 
@@ -221,10 +235,12 @@ function emailValidity(event){
     }else if(reg2.test(emailF.value)== false){
 
         event.preventDefault();
-        emailMissing.textContent = "Format incorrect, veuillez uitiliser un '@' et le format '.com ou .fr ect' ";
+        emailMissing.textContent = "Format incorrect, veuillez uitiliser le format exemple : xxxx@yyyy.com ";
         emailMissing.style.color = "orange";
 
     }else{
+        emailMissing.textContent = "Valide";
+        emailMissing.style.color = "green";
         return true;
     };
 };
@@ -244,6 +260,8 @@ function adresseValidity(event){
         adresseMissing.style.color = "orange";
 
     }else{
+        adresseMissing.textContent = "Valide";
+        adresseMissing.style.color = "green";
         return true;
     };
 };
@@ -277,24 +295,20 @@ buttonForm.addEventListener('click',function(event){
     
     createContact();
 
-    firstValidity(event);
-    lastValidity(event);
-    cityValidity(event);
+    simpleStringValidity(event);
     adresseValidity(event);
     emailValidity(event);
 
     postApi(urlOrder);
 
     if(
-        firstValidity(event) == true &&
-        lastValidity(event) == true &&
-        cityValidity(event) == true &&
+        simpleStringValidity(event) == true &&
         adresseValidity(event) == true &&
         emailValidity(event) == true 
     ){
         this.onclick(window.location = '/confirmation.html');
     }else{
-        alert("Veuillez remplir toutes les informations du formulaire afin de valider la commande");
+        alert("Veuillez remplir correctement toutes les informations du formulaire afin de valider la commande");
     }
 
    
