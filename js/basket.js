@@ -146,7 +146,7 @@ const postApi = (urlOrder) => fetch(urlOrder, {
 .then((response) => response.json())
 .then(function(json) {
     localStorage.setItem("orderConfirmation",JSON.stringify(json.orderId));
-    console.log(json.orderId)
+
 })
 .catch((error) => console.log("error:", error));
 
@@ -166,7 +166,7 @@ function firstValidity(event){
         firstMissing.style.color = "orange";
 
     }else{
-
+        return true;
     };
 };
 
@@ -185,7 +185,7 @@ function lastValidity(event){
         lastMissing.style.color = "orange";
 
     }else{
-
+        return true;
     };
 };
 
@@ -205,7 +205,7 @@ function cityValidity(event){
         cityMissing.style.color = "orange";
 
     }else{
-
+        return true;
     };
 };
 
@@ -225,7 +225,7 @@ function emailValidity(event){
         emailMissing.style.color = "orange";
 
     }else{
-
+        return true;
     };
 };
 
@@ -244,7 +244,7 @@ function adresseValidity(event){
         adresseMissing.style.color = "orange";
 
     }else{
-
+        return true;
     };
 };
 
@@ -267,8 +267,6 @@ function createContact() {
     contact.city = ville;
     contact.email = mail;
 
-    console.log(typeof(contact));
-
 };
  
 
@@ -287,8 +285,21 @@ buttonForm.addEventListener('click',function(event){
 
     postApi(urlOrder);
 
-    this.onclick(window.location = '/confirmation.html')
+    if(
+        firstValidity(event) == true &&
+        lastValidity(event) == true &&
+        cityValidity(event) == true &&
+        adresseValidity(event) == true &&
+        emailValidity(event) == true 
+    ){
+        this.onclick(window.location = '/confirmation.html');
+    }else{
+        alert("Veuillez remplir toutes les informations du formulaire afin de valider la commande");
+    }
 
+   
+    //console.log(postApi(urlOrder));
+    //console.log(firstValidity(event));
 });
 
   
