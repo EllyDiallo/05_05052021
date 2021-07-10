@@ -61,24 +61,12 @@ function createBasket (productsInStorage){
             priceBasket.setAttribute("class","w-25 align-self-end justify-self-end ml-auto p-2 bd-highlight");
             priceBasket.innerHTML = " Prix HT : " + productsInStorage[i][2] + "€" ;
 
-            const btnEraseItem = document.createElement("button");
-            btnEraseItem.textContent ="Annuler le produit";
-            btnEraseItem.setAttribute("class","border border-secondary my-2 shadow bg-dark rounded float-right");
-            btnEraseItem.setAttribute("type","button");
-            btnEraseItem.addEventListener("click",function(){
-                localStorage.removeItem("storageContent"[i]);
-                
-                
-            });
-
             div.appendChild(divBasket);
             divBasket.appendChild(nameBasket);
             divBasket.appendChild(imagesBasket);
             divBasket.appendChild(optionSelected);
             divBasket.appendChild(priceBasket);
-            divBasket.appendChild(btnEraseItem);
-
-
+            
     };
 
     
@@ -111,7 +99,7 @@ function createBasket (productsInStorage){
 
 createBasket(productsInStorage);
 
-//***********************création array [contact] */
+//***********************création objet {contact} */
 
 const contact = {
     firstName: "" ,
@@ -131,7 +119,6 @@ for(let i = 0; i < productsInStorage.length; i++){
 
 /***************************creation de la requête POST */
 
-let order = { contact: contact, products: products };
 const urlOrder = "http://localhost:3000/api/teddies/order";
 
 /*******************function POST API */
@@ -150,13 +137,16 @@ const postApi = (urlOrder) => fetch(urlOrder, {
 })
 .catch((error) => console.log("error:", error));
 
-/*************************************function simple chaine de caractères */
+/*************************************function  regex "simple chaine de caractères" */
 
 function simpleStringValidity(event){
+
     const prenomF = document.getElementById("first-name");
     const firstMissing = document.getElementById("first-name-missing");
+
     const nomF = document.getElementById("last-name");
     const lastMissing = document.getElementById("last-name-missing");
+
     const cityF = document.getElementById("city");
     const cityMissing = document.getElementById("city-missing");
 
@@ -248,7 +238,7 @@ function emailValidity(event){
 function adresseValidity(event){
     const adresseF = document.getElementById("adresse");
     const adresseMissing = document.getElementById("adresse-missing");
-    const reg3 = /^([\d]{1,3})(?:(?:[,. ]){1,2}[a-zA-Zàâäéèêëïîôöùûüç]+)+/i;
+    const reg3 = /^([\d]{1,3})(?:(?:[,.\s ]){1,2}[a-zA-Zàâäéèêëïîôöùûüç]+)+/i;
     if(adresseF.validity.valueMissing){
         event.preventDefault();
         adresseMissing.textContent = "Adresse non-définie";
@@ -286,6 +276,13 @@ function createContact() {
     contact.email = mail;
 
 };
+
+/********************** function de véification array.string */
+function checkProductsContainStrings(val){
+
+    return typeof val == "string" ? true : false;   
+   
+};
  
 
 const buttonForm = document.getElementById("btn-form");
@@ -300,20 +297,19 @@ buttonForm.addEventListener('click',function(event){
     emailValidity(event);
 
     postApi(urlOrder);
-
+    
     if(
         simpleStringValidity(event) == true &&
         adresseValidity(event) == true &&
-        emailValidity(event) == true 
+        emailValidity(event) == true &&
+        products.every(checkProductsContainStrings) == true
+       
     ){
         this.onclick(window.location = '/confirmation.html');
     }else{
-        alert("Veuillez remplir correctement toutes les informations du formulaire afin de valider la commande");
+        alert("Une erreur est survenue. Essayez remplir correctement toutes les informations du formulaire afin de valider la commande");
     }
 
-   
-    //console.log(postApi(urlOrder));
-    //console.log(firstValidity(event));
 });
 
   

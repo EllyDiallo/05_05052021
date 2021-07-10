@@ -2,8 +2,6 @@
 
 const confirmationInStorage = JSON.parse(localStorage.getItem("orderConfirmation"));
 
-console.log(JSON.stringify(confirmationInStorage));
-
 const sectionOrder = document.getElementById("teddys-confirmation");
 sectionOrder.setAttribute("class", "mx-5 bd-highlight mb-3  my-5 bg-warning shadow d-flex flex-column text-center  flex-wrap w-auto h-auto justify-content-center");
 
