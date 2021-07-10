@@ -296,14 +296,21 @@ buttonForm.addEventListener('click',function(event){
     adresseValidity(event);
     emailValidity(event);
 
-    postApi(urlOrder);
-    
+    if(
+        products.every(checkProductsContainStrings) == true &&
+        contact instanceof Object == true
+        ){
+        postApi(urlOrder);
+        
+    }else{
+        alert("Un problème est survenu");
+    }
+     
     if(
         simpleStringValidity(event) == true &&
         adresseValidity(event) == true &&
-        emailValidity(event) == true &&
-        products.every(checkProductsContainStrings) == true
-       
+        emailValidity(event) == true 
+        
     ){
         this.onclick(window.location = '/confirmation.html');
     }else{
