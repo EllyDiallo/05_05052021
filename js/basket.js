@@ -150,7 +150,7 @@ function simpleStringValidity(event){
     const cityF = document.getElementById("city");
     const cityMissing = document.getElementById("city-missing");
 
-    const reg1 = /^[a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+)?/;
+    const reg1 = /^[A-ZÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+)?/;
 
     if(prenomF.validity.valueMissing){
 
@@ -312,7 +312,10 @@ buttonForm.addEventListener('click',function(event){
         emailValidity(event) == true 
         
     ){
+        localStorage.removeItem("storageContent");
         this.onclick(window.location = '/confirmation.html');
+        
+
     }else{
         alert("Une erreur est survenue. Essayez remplir correctement toutes les informations du formulaire afin de valider la commande");
     }
