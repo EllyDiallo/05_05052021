@@ -1,14 +1,5 @@
-//***********************************reponse de l'Api
 
-const getApi = (url) =>  fetch(url)
-.then(function(response) {
-return response.json()
-})
-.then(function(response) {
-    return response;
-})
-.catch(error => console.log("Erreur : " + error));
-/************************************************* */
+
 
 let productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
 
@@ -97,7 +88,7 @@ function createProduct (response){
     const itemDefault = document.createElement("option");
     itemDefault.innerHTML = "Choisir une couleur";
     selection.appendChild(itemDefault);
-//**********************************création des options
+//**********************************création des options */
     for (let c = 0 ; c < response.colors.length; c++){
 
         const item =  document.createElement("option");
@@ -105,9 +96,7 @@ function createProduct (response){
         item.innerHTML = response.colors[c];
         selection.appendChild(item);
     };
- //*************************************************** */   
-        
-
+ 
     const price = document.createElement("p");
     price.innerHTML = "Prix : " +  response.price + "€";
     price.setAttribute("class","text-right");
@@ -115,6 +104,7 @@ function createProduct (response){
     const link = document.createElement("a");
     link.setAttribute("href", "product.html?id=" + response._id);
 
+    /******************************création du boutton */
     const btn = document.createElement("button");
     btn.innerHTML ="Ajoutez au panier";
     btn.setAttribute("class","border border-secondary shadow bg-danger rounded");
@@ -123,10 +113,9 @@ function createProduct (response){
     const teddyPrice = response.price;
     const teddyPic = response.imageUrl;
     
-
-    btn.addEventListener("click",function(response){
+/******************Au click ajout Panier */
+    btn.addEventListener("click",function(){
         
-        const productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
         const id = getIdProduct();
         const optColor = document.getElementsByTagName("select");
         const optColorSelected = optColor[0].value; 
@@ -135,7 +124,7 @@ function createProduct (response){
         
         
     });
-
+/**********************boutton de navigation prv nxt  */
     const links = document.createElement("div");
     links.setAttribute("class", "container d-flex justify-content-between");
 

@@ -1,19 +1,6 @@
 
-/********************************** obtention API */
-const getApi = (url) =>  fetch(url)
-.then(function(response) {
-return response.json()
-})
-.then(function(response) {
-    return response;
-})
-.catch(error => console.log("Erreur : " + error));
-
-
+/************************************** variable du localStorage */
 let productsInStorage = JSON.parse(localStorage.getItem("storageContent"));
-let productPriceInStorage = JSON.parse(localStorage.getItem("storagePriceContent"));
-
-
 
 /*************************fonction somme total des prix */
 
@@ -33,39 +20,37 @@ function createBasket (productsInStorage){
     const title = document.createElement("h1");
     title.innerHTML = "Panier";
 
-    const choosen = document.createElement("p");
-    choosen.textContent = "Vous avez choisi : ";
 
     for(let i =0; i < productsInStorage.length; i++){
         const id = productsInStorage[i][0];
         const urlTeddy = productsInStorage[i][3];
        
-            const divBasket = document.createElement("div");
-            divBasket.setAttribute("class", "mx-2 bd-highlight mb-3  bg-warning shadow d-flex flex-row  flex-wrap w-auto h-auto justify-content-center");
+        const divBasket = document.createElement("div");
+        divBasket.setAttribute("class", "mx-2 bd-highlight mb-3  bg-warning shadow d-flex flex-row  flex-wrap w-auto h-auto justify-content-center");
 
-            const imagesBasket = document.createElement("img");
-            imagesBasket.setAttribute("width","30%");
-            imagesBasket.setAttribute("height","100px");
-            imagesBasket.setAttribute("src", urlTeddy );
-            imagesBasket.setAttribute("class","fit fluid rounded-top mx-2 my-2 align-self-center w-25 col-6");
+        const imagesBasket = document.createElement("img");
+        imagesBasket.setAttribute("width","30%");
+        imagesBasket.setAttribute("height","100px");
+        imagesBasket.setAttribute("src", urlTeddy );
+        imagesBasket.setAttribute("class","fit fluid rounded-top mx-2 my-2 align-self-center w-25 col-6");
 
-            const nameBasket = document.createElement("h4");
-            nameBasket.setAttribute("class","w-10 align-self-center px-2 col-6");
-            nameBasket.innerHTML =  productsInStorage[i][4] ;
+        const nameBasket = document.createElement("h4");
+        nameBasket.setAttribute("class","w-10 align-self-center px-2 col-6");
+        nameBasket.innerHTML =  productsInStorage[i][4] ;
 
-            const optionSelected = document.createElement("div");
-            optionSelected.setAttribute("class", "w-50 mx-2 danger justify-self-center d-flex flex-wrap");
-            optionSelected.innerHTML = " Option : " + productsInStorage[i][1];
+        const optionSelected = document.createElement("div");
+        optionSelected.setAttribute("class", "w-50 mx-2 danger justify-self-center d-flex flex-wrap");
+        optionSelected.innerHTML = " Option : " + productsInStorage[i][1];
 
-            const priceBasket = document.createElement("div");
-            priceBasket.setAttribute("class","w-25 align-self-end justify-self-end ml-auto p-2 bd-highlight");
-            priceBasket.innerHTML = " Prix HT : " + productsInStorage[i][2] + "€" ;
+        const priceBasket = document.createElement("div");
+        priceBasket.setAttribute("class","w-25 align-self-end justify-self-end ml-auto p-2 bd-highlight");
+        priceBasket.innerHTML = " Prix HT : " + productsInStorage[i][2] + "€" ;
 
-            div.appendChild(divBasket);
-            divBasket.appendChild(nameBasket);
-            divBasket.appendChild(imagesBasket);
-            divBasket.appendChild(optionSelected);
-            divBasket.appendChild(priceBasket);
+        div.appendChild(divBasket);
+        divBasket.appendChild(nameBasket);
+        divBasket.appendChild(imagesBasket);
+        divBasket.appendChild(optionSelected);
+        divBasket.appendChild(priceBasket);
             
     };
 
@@ -80,8 +65,9 @@ function createBasket (productsInStorage){
     btnErase.setAttribute("class","border border-secondary my-3 shadow bg-dark rounded float-right");
     btnErase.setAttribute("type","button");
 
-    
+    /**************************Au click du boutton vider le panier */
     btnErase.addEventListener("click",function(){
+
         localStorage.removeItem("storageContent");
       
         const eraseDiv = document.getElementById("empty");
@@ -92,7 +78,6 @@ function createBasket (productsInStorage){
     });
 
     div.appendChild(totalPrice);    
-    div.appendChild(choosen);
     div.appendChild(btnErase);
 
 };
@@ -137,7 +122,7 @@ const postApi = (urlOrder) => fetch(urlOrder, {
 })
 .catch((error) => console.log("error:", error));
 
-/*************************************function  regex "simple chaine de caractères" */
+/*************************************function 3 inputs regex "simple chaine de caractères" */
 
 function simpleStringValidity(event){
 
@@ -150,7 +135,7 @@ function simpleStringValidity(event){
     const cityF = document.getElementById("city");
     const cityMissing = document.getElementById("city-missing");
 
-    const reg1 = /^[A-ZÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ][a-zéèàçîï]+)?/;
+    const reg1 = /^[A-ZÉÈÏÎ][a-zéèàçîï]+([-'\s][a-zA-ZéèîïÉÈÏÎ]+)?/;
 
     if(prenomF.validity.valueMissing){
 
@@ -213,17 +198,20 @@ function simpleStringValidity(event){
     };
 };
 
+/*********************************fonction regex email */
 
 function emailValidity(event){
     const emailF = document.getElementById("email");
     const emailMissing = document.getElementById("email-missing");
+
     const reg2 = /^([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/i;
+
     if(emailF.validity.valueMissing){
         event.preventDefault();
         emailMissing.textContent = "Adresse maïl non-définie";
         emailMissing.style.color = "red";
-    }else if(reg2.test(emailF.value)== false){
 
+    }else if(reg2.test(emailF.value)== false){
         event.preventDefault();
         emailMissing.textContent = "Format incorrect, veuillez uitiliser le format exemple : xxxx@yyyy.com ";
         emailMissing.style.color = "orange";
@@ -234,6 +222,8 @@ function emailValidity(event){
         return true;
     };
 };
+  
+/******************************fonction regex adresse */
 
 function adresseValidity(event){
     const adresseF = document.getElementById("adresse");
@@ -259,21 +249,15 @@ function adresseValidity(event){
 
 
 
-
+/********************** fonction pour assigner des valeur à {contact} */
 
 function createContact() {
 
-    const prenom = document.getElementById("first-name").value;
-    const nom = document.getElementById("last-name").value;
-    const addre = document.getElementById("adresse").value;
-    const ville = document.getElementById("city").value;
-    const mail = document.getElementById("email").value;
-    
-    contact.firstName = prenom;
-    contact.lastName = nom;
-    contact.address = addre;
-    contact.city = ville;
-    contact.email = mail;
+    contact.firstName = document.getElementById("first-name").value;
+    contact.lastName = document.getElementById("last-name").value;
+    contact.address = document.getElementById("adresse").value;
+    contact.city = document.getElementById("city").value;
+    contact.email = document.getElementById("email").value;;
 
 };
 
@@ -284,6 +268,7 @@ function checkProductsContainStrings(val){
    
 };
  
+/******************************* fonction évenement  au click du boutton */
 
 const buttonForm = document.getElementById("btn-form");
 buttonForm.addEventListener('click',function(event){
@@ -292,31 +277,19 @@ buttonForm.addEventListener('click',function(event){
     
     createContact();
 
-    simpleStringValidity(event);
-    adresseValidity(event);
-    emailValidity(event);
 
     if(
         products.every(checkProductsContainStrings) == true &&
-        contact instanceof Object == true
+        contact instanceof Object == true && simpleStringValidity(event) == true && adresseValidity(event) == true && emailValidity(event) == true 
         ){
         postApi(urlOrder);
+        localStorage.removeItem("storageContent");
+        this.onclick(window.location = '/frontend/confirmation.html');
         
     }else{
         alert("Un problème est survenu");
     }
      
-    if(
-        simpleStringValidity(event) == true && adresseValidity(event) == true && emailValidity(event) == true 
-        
-    ){
-        localStorage.removeItem("storageContent");
-        this.onclick(window.location = '/frontend/confirmation.html');
-        
-
-    }else{
-        alert("Une erreur est survenue. Essayez remplir correctement toutes les informations du formulaire afin de valider la commande");
-    }
 
 });
 
