@@ -307,13 +307,11 @@ buttonForm.addEventListener('click',function(event){
     }
      
     if(
-        simpleStringValidity(event) == true &&
-        adresseValidity(event) == true &&
-        emailValidity(event) == true 
+        simpleStringValidity(event) == true && adresseValidity(event) == true && emailValidity(event) == true 
         
     ){
         localStorage.removeItem("storageContent");
-        this.onclick(window.location = '/confirmation.html');
+        this.onclick(window.location = '/frontend/confirmation.html');
         
 
     }else{
